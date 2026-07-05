@@ -59,68 +59,177 @@ namespace Punto.Forms
             this.gbDatos.SuspendLayout();
             this.gbBotones.SuspendLayout();
             this.SuspendLayout();
-
-            this.gbBusqueda.Text = "Buscar producto";
-            this.gbBusqueda.Location = new System.Drawing.Point(12, 12);
-            this.gbBusqueda.Size = new System.Drawing.Size(860, 60);
-
+            // 
+            // txtBusqueda
+            // 
             this.txtBusqueda.Location = new System.Drawing.Point(15, 25);
-            this.txtBusqueda.Size = new System.Drawing.Size(400, 22);
-            this.gbBusqueda.Controls.Add(this.txtBusqueda);
-
+            this.txtBusqueda.Name = "txtBusqueda";
+            this.txtBusqueda.Size = new System.Drawing.Size(400, 20);
+            this.txtBusqueda.TabIndex = 0;
+            // 
+            // dgvProductos
+            // 
             this.dgvProductos.AllowUserToAddRows = false;
             this.dgvProductos.AllowUserToDeleteRows = false;
             this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProductos.Location = new System.Drawing.Point(12, 80);
-            this.dgvProductos.Size = new System.Drawing.Size(860, 220);
+            this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
-            this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProductos.RowHeadersVisible = false;
-
-            this.gbDatos.Text = "Datos del producto";
-            this.gbDatos.Location = new System.Drawing.Point(12, 310);
-            this.gbDatos.Size = new System.Drawing.Size(860, 140);
-
+            this.dgvProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvProductos.Size = new System.Drawing.Size(860, 220);
+            this.dgvProductos.TabIndex = 1;
+            this.dgvProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellContentClick);
+            // 
+            // lblId
+            // 
+            this.lblId.Location = new System.Drawing.Point(15, 20);
+            this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(100, 23);
+            this.lblId.TabIndex = 0;
             this.lblId.Text = "0";
             this.lblId.Visible = false;
-            this.lblId.Location = new System.Drawing.Point(15, 20);
-
-            this.label1.Text = "Código:";
-            this.label1.Location = new System.Drawing.Point(15, 25);
-            this.label1.Size = new System.Drawing.Size(80, 20);
-
+            // 
+            // txtCodigo
+            // 
             this.txtCodigo.Location = new System.Drawing.Point(15, 48);
-            this.txtCodigo.Size = new System.Drawing.Size(130, 22);
-
-            this.label2.Text = "Nombre:";
-            this.label2.Location = new System.Drawing.Point(160, 25);
-            this.label2.Size = new System.Drawing.Size(80, 20);
-
+            this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.Size = new System.Drawing.Size(130, 20);
+            this.txtCodigo.TabIndex = 2;
+            // 
+            // txtNombre
+            // 
             this.txtNombre.Location = new System.Drawing.Point(160, 48);
-            this.txtNombre.Size = new System.Drawing.Size(230, 22);
-
-            this.label3.Text = "Precio:";
-            this.label3.Location = new System.Drawing.Point(405, 25);
-            this.label3.Size = new System.Drawing.Size(80, 20);
-
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(230, 20);
+            this.txtNombre.TabIndex = 4;
+            // 
+            // txtPrecio
+            // 
             this.txtPrecio.Location = new System.Drawing.Point(405, 48);
-            this.txtPrecio.Size = new System.Drawing.Size(100, 22);
-
-            this.label4.Text = "Stock:";
-            this.label4.Location = new System.Drawing.Point(520, 25);
-            this.label4.Size = new System.Drawing.Size(80, 20);
-
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.TabIndex = 6;
+            // 
+            // txtStock
+            // 
             this.txtStock.Location = new System.Drawing.Point(520, 48);
-            this.txtStock.Size = new System.Drawing.Size(80, 22);
-
-            this.label5.Text = "Categoría:";
-            this.label5.Location = new System.Drawing.Point(615, 25);
-            this.label5.Size = new System.Drawing.Size(80, 20);
-
+            this.txtStock.Name = "txtStock";
+            this.txtStock.Size = new System.Drawing.Size(80, 20);
+            this.txtStock.TabIndex = 8;
+            // 
+            // cmbCategorias
+            // 
             this.cmbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCategorias.Location = new System.Drawing.Point(615, 48);
-            this.cmbCategorias.Size = new System.Drawing.Size(150, 22);
-
+            this.cmbCategorias.Name = "cmbCategorias";
+            this.cmbCategorias.Size = new System.Drawing.Size(150, 21);
+            this.cmbCategorias.TabIndex = 10;
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(70)))), ((int)(((byte)(229)))));
+            this.btnNuevo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevo.FlatAppearance.BorderSize = 0;
+            this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevo.ForeColor = System.Drawing.Color.White;
+            this.btnNuevo.Location = new System.Drawing.Point(15, 25);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(100, 30);
+            this.btnNuevo.TabIndex = 0;
+            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.UseVisualStyleBackColor = false;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
+            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditar.FlatAppearance.BorderSize = 0;
+            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditar.ForeColor = System.Drawing.Color.White;
+            this.btnEditar.Location = new System.Drawing.Point(130, 25);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(100, 30);
+            this.btnEditar.TabIndex = 1;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminar.FlatAppearance.BorderSize = 0;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminar.ForeColor = System.Drawing.Color.White;
+            this.btnEliminar.Location = new System.Drawing.Point(245, 25);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(100, 30);
+            this.btnEliminar.TabIndex = 2;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(15, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 20);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Código:";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(160, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 20);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Nombre:";
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(405, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 20);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Precio:";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(520, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(80, 20);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Stock:";
+            // 
+            // label5
+            // 
+            this.label5.Location = new System.Drawing.Point(615, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 20);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Categoría:";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(100, 23);
+            this.label6.TabIndex = 0;
+            // 
+            // gbBusqueda
+            // 
+            this.gbBusqueda.Controls.Add(this.txtBusqueda);
+            this.gbBusqueda.Location = new System.Drawing.Point(12, 12);
+            this.gbBusqueda.Name = "gbBusqueda";
+            this.gbBusqueda.Size = new System.Drawing.Size(860, 60);
+            this.gbBusqueda.TabIndex = 0;
+            this.gbBusqueda.TabStop = false;
+            this.gbBusqueda.Text = "Buscar producto";
+            // 
+            // gbDatos
+            // 
             this.gbDatos.Controls.Add(this.lblId);
             this.gbDatos.Controls.Add(this.label1);
             this.gbDatos.Controls.Add(this.txtCodigo);
@@ -132,49 +241,35 @@ namespace Punto.Forms
             this.gbDatos.Controls.Add(this.txtStock);
             this.gbDatos.Controls.Add(this.label5);
             this.gbDatos.Controls.Add(this.cmbCategorias);
-
-            this.gbBotones.Text = "Acciones";
-            this.gbBotones.Location = new System.Drawing.Point(12, 460);
-            this.gbBotones.Size = new System.Drawing.Size(860, 65);
-
-            this.btnNuevo.Text = "Nuevo";
-            this.btnNuevo.Location = new System.Drawing.Point(15, 25);
-            this.btnNuevo.Size = new System.Drawing.Size(100, 30);
-            this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevo.BackColor = System.Drawing.Color.FromArgb(79, 70, 229);
-            this.btnNuevo.ForeColor = System.Drawing.Color.White;
-            this.btnNuevo.FlatAppearance.BorderSize = 0;
-            this.btnNuevo.Cursor = System.Windows.Forms.Cursors.Hand;
-
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.Location = new System.Drawing.Point(130, 25);
-            this.btnEditar.Size = new System.Drawing.Size(100, 30);
-            this.btnEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(245, 158, 11);
-            this.btnEditar.ForeColor = System.Drawing.Color.White;
-            this.btnEditar.FlatAppearance.BorderSize = 0;
-            this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
-
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.Location = new System.Drawing.Point(245, 25);
-            this.btnEliminar.Size = new System.Drawing.Size(100, 30);
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(239, 68, 68);
-            this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.FlatAppearance.BorderSize = 0;
-            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
-
+            this.gbDatos.Location = new System.Drawing.Point(12, 310);
+            this.gbDatos.Name = "gbDatos";
+            this.gbDatos.Size = new System.Drawing.Size(860, 140);
+            this.gbDatos.TabIndex = 2;
+            this.gbDatos.TabStop = false;
+            this.gbDatos.Text = "Datos del producto";
+            // 
+            // gbBotones
+            // 
             this.gbBotones.Controls.Add(this.btnNuevo);
             this.gbBotones.Controls.Add(this.btnEditar);
             this.gbBotones.Controls.Add(this.btnEliminar);
-
+            this.gbBotones.Location = new System.Drawing.Point(12, 460);
+            this.gbBotones.Name = "gbBotones";
+            this.gbBotones.Size = new System.Drawing.Size(860, 65);
+            this.gbBotones.TabIndex = 3;
+            this.gbBotones.TabStop = false;
+            this.gbBotones.Text = "Acciones";
+            // 
+            // frmProductos
+            // 
             this.ClientSize = new System.Drawing.Size(884, 540);
             this.Controls.Add(this.gbBusqueda);
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.gbDatos);
             this.Controls.Add(this.gbBotones);
+            this.Name = "frmProductos";
             this.Text = "Gestión de Productos";
-
+            this.Load += new System.EventHandler(this.frmProductos_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.gbBusqueda.ResumeLayout(false);
             this.gbBusqueda.PerformLayout();
@@ -182,6 +277,7 @@ namespace Punto.Forms
             this.gbDatos.PerformLayout();
             this.gbBotones.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
     }
 }

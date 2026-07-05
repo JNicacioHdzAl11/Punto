@@ -66,6 +66,7 @@ namespace Punto.Forms
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(400, 20);
             this.txtBusqueda.TabIndex = 0;
+            this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
             // 
             // dgvProductos
             // 

@@ -23,8 +23,8 @@ namespace Punto.Forms
                 string consulta = "SELECT producto_id, codigo,descripcion, precio, stock FROM productos";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(consulta, dbConn);
                 DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable); // Llena el contenedor en memoria
-                dgvProductos.DataSource = dataTable; // Vincula los datos a la tabla visual
+                adapter.Fill(dataTable); 
+                dgvProductos.DataSource = dataTable; 
                 dbConn.Close();
             }
        
@@ -120,14 +120,14 @@ namespace Punto.Forms
             {
                 DataGridViewRow fila = dgvProductos.Rows[e.RowIndex];
 
-                // Pasamos los datos de la tabla a las cajas de texto
+                
                 txtCodigo.Text = fila.Cells["codigo"].Value.ToString();
                 txtNombre.Text = fila.Cells["descripcion"].Value.ToString();
                 txtPrecio.Text = fila.Cells["precio"].Value.ToString();
                 txtStock.Text = fila.Cells["stock"].Value.ToString();
 
-                // Guardamos el ID del producto de forma invisible en la propiedad Tag del DataGridView
-                dgvProductos.Tag = fila.Cells["producto_id"].Value;
+             
+                dgvProductos.Tag = fila.Cells["producto_id"].Value.ToString()   ;
             }
         }
 
@@ -150,14 +150,14 @@ namespace Punto.Forms
                     command.Parameters.AddWithValue("@descripcion", txtNombre.Text.Trim());
                     command.Parameters.AddWithValue("@precio", precioValido);
                     command.Parameters.AddWithValue("@stock", stockValido);
-                    command.Parameters.AddWithValue("@id", dgvProductos.Tag); // El ID oculto
+                    command.Parameters.AddWithValue("@id", dgvProductos.Tag); 
 
                     int filasAfectadas = command.ExecuteNonQuery();
                     if (filasAfectadas > 0)
                     {
                         MessageBox.Show("Producto actualizado con éxito.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LimpiarFormulario();
-                        CargarProductos(); // Recarga la rejilla con los cambios
+                        CargarProductos(); 
                     }
                     dbConn.Close();
                 }
@@ -189,7 +189,8 @@ namespace Punto.Forms
                         {
                             MessageBox.Show("Producto eliminado exitosamente.", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             LimpiarFormulario();
-                            CargarProductos(); // Actualiza la rejilla
+                            CargarProductos();
+
                         }
                         dbConn.Close();
                     }
@@ -214,6 +215,27 @@ namespace Punto.Forms
         private void frmProductos_Load_1(object sender, EventArgs e)
         {
             CargarProductos();
+        }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            coneccion = new DataAcces();
+            MySqlConnection dbConn = dbHelper.ObtenerConexion();
+
+            if (dbConn != null)
+            {
+                TextBox txt = (TextBox)sender;
+                string consulta = "SELECT producto_id, codigo, descripcion, precio, stock FROM productos WHERE descripcion LIKE @busqueda OR codigo LIKE @busqueda";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(consulta, dbConn);
+                adapter.SelectCommand.Parameters.AddWithValue("@busqueda", "%" + txt.Text + "%");
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                dgvProductos.DataSource = dt;
+                /*dgvProductos.Columns["idUsuario"].Visible = false;
+                dgvProductos.Columns["PASSWORD"].Visible = false;¨*/
+            }
         }
     }
 }

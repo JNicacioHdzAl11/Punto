@@ -41,14 +41,14 @@ namespace Punto.Forms
                     command.Parameters.AddWithValue("@pass", pass);
 
                     object resultado = command.ExecuteScalar();
-                    if (resultado != null) // Si encontró al estudiante...
+                    if (resultado != null) 
                     {
                         string nombre = resultado.ToString();
                         MessageBox.Show("¡Bienvenido " + nombre + "!");
                         frmPrincipal principal = new frmPrincipal();
                         this.Hide();
                         principal.Show();
-                        // Aquí se abriría el siguiente formulario y se ocultaría este
+                        
                     }
                     else
                     {

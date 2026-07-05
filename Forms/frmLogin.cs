@@ -43,8 +43,8 @@ namespace Punto.Forms
                     object resultado = command.ExecuteScalar();
                     if (resultado != null) // Si encontró al estudiante...
                     {
-                        string nombreEstudiante = resultado.ToString();
-                        MessageBox.Show("¡Bienvenido " + nombreEstudiante + "!");
+                        string nombre = resultado.ToString();
+                        MessageBox.Show("¡Bienvenido " + nombre + "!");
                         frmPrincipal principal = new frmPrincipal();
                         this.Hide();
                         principal.Show();

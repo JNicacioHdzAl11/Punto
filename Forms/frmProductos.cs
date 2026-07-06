@@ -20,9 +20,10 @@ namespace Punto.Forms
             MySqlConnection dbConn = dbHelper.ObtenerConexion();
             if (dbConn != null)
             {
-                string consulta = "SELECT producto_id, codigo,descripcion, precio, stock FROM productos";
+                string consulta = "SELECT producto_id, codigo,descripcion, precio, stock, categoria FROM productos";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(consulta, dbConn);
                 DataTable dataTable = new DataTable();
+                
                 adapter.Fill(dataTable); 
                 dgvProductos.DataSource = dataTable; 
                 dbConn.Close();
@@ -38,7 +39,7 @@ namespace Punto.Forms
             string nombre = txtNombre.Text.Trim();
             string precio = txtPrecio.Text.Trim();
             string stock = txtStock.Text.Trim();
-            string categorias = cmbCategorias.Text;
+            string categorias = cmbCategorias.Text.Trim();
             if (string.IsNullOrWhiteSpace(codigo))
             {
 
@@ -51,24 +52,30 @@ namespace Punto.Forms
             {
 
                 MessageBox.Show("El nombre del producto es obligatorio.", "Validacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCodigo.Focus();
+                txtNombre.Focus();
                 return;
             }
             if (string.IsNullOrWhiteSpace(precio))
             {
 
                 MessageBox.Show("El precio del producto es obligatorio.", "Validacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCodigo.Focus();
+                txtPrecio.Focus();
                 return;
             }
             if (string.IsNullOrWhiteSpace(stock))
             {
 
                 MessageBox.Show("El stock del producto es obligatorio.", "Validacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCodigo.Focus();
+                txtStock.Focus();
                 return;
             }
+            if (string.IsNullOrWhiteSpace(categorias))
+            {
 
+                MessageBox.Show("La categoria del producto es obligatorio.", "Validacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbCategorias.Focus();
+                return;
+            }
 
             if (!decimal.TryParse(txtPrecio.Text, out decimal precioValido))
             {
@@ -88,7 +95,7 @@ namespace Punto.Forms
             {
                 try
                 {
-                    string consulta = "INSERT INTO productos (codigo, descripcion, precio, stock) VALUES (@codigo, @descripcion, @precio, @stock)";
+                    string consulta = "INSERT INTO productos (codigo, descripcion, precio, stock, categoria) VALUES (@codigo, @descripcion, @precio, @stock, @categoria)";
                     MySqlCommand command = new MySqlCommand(consulta, dbConn);
 
                     command.Parameters.AddWithValue("@codigo", codigo);
@@ -120,19 +127,23 @@ namespace Punto.Forms
             {
                 DataGridViewRow fila = dgvProductos.Rows[e.RowIndex];
 
-                
+
                 txtCodigo.Text = fila.Cells["codigo"].Value.ToString();
                 txtNombre.Text = fila.Cells["descripcion"].Value.ToString();
                 txtPrecio.Text = fila.Cells["precio"].Value.ToString();
                 txtStock.Text = fila.Cells["stock"].Value.ToString();
-
-             
+                cmbCategorias.Text = fila.Cells["categoria"].Value.ToString();
                 dgvProductos.Tag = fila.Cells["producto_id"].Value.ToString()   ;
             }
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            if (dgvProductos.Tag == null)
+            {
+                MessageBox.Show("Por favor, seleccione un producto de la tabla antes de continuar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (!decimal.TryParse(txtPrecio.Text, out decimal precioValido) || !int.TryParse(txtStock.Text, out int stockValido))
             {
                 MessageBox.Show("Verifique que los formatos numericos de Precio y Stock sean correctos.", "Validacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -143,13 +154,14 @@ namespace Punto.Forms
             {
                 try
                 {
-                    string consulta = "UPDATE productos SET codigo = @codigo, descripcion = @descripcion, precio = @precio, stock = @stock WHERE producto_id = @id";
+                    string consulta = "UPDATE productos SET codigo = @codigo, descripcion = @descripcion, precio = @precio, stock = @stock, categoria = @categoria WHERE producto_id = @id";
                     MySqlCommand command = new MySqlCommand(consulta, dbConn);
 
                     command.Parameters.AddWithValue("@codigo", txtCodigo.Text.Trim());
                     command.Parameters.AddWithValue("@descripcion", txtNombre.Text.Trim());
                     command.Parameters.AddWithValue("@precio", precioValido);
                     command.Parameters.AddWithValue("@stock", stockValido);
+                    command.Parameters.AddWithValue("@categoria", cmbCategorias.Text.Trim());
                     command.Parameters.AddWithValue("@id", dgvProductos.Tag); 
 
                     int filasAfectadas = command.ExecuteNonQuery();
@@ -171,6 +183,11 @@ namespace Punto.Forms
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (dgvProductos.Tag == null)
+            {
+                MessageBox.Show("Por favor, seleccione un producto de la tabla antes de continuar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             DialogResult confirmacion = MessageBox.Show("¿Seguro que deseas eliminar este producto?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (confirmacion == DialogResult.Yes)
@@ -210,6 +227,7 @@ namespace Punto.Forms
             txtStock.Clear();
             cmbCategorias.SelectedIndex = -1;
             txtCodigo.Focus();
+            dgvProductos.Tag = null;
         }
 
         private void frmProductos_Load_1(object sender, EventArgs e)
@@ -225,7 +243,7 @@ namespace Punto.Forms
             if (dbConn != null)
             {
                 TextBox txt = (TextBox)sender;
-                string consulta = "SELECT producto_id, codigo, descripcion, precio, stock FROM productos WHERE descripcion LIKE @busqueda OR codigo LIKE @busqueda";
+                string consulta = "SELECT producto_id, codigo, descripcion, precio, stock, categoria FROM productos WHERE descripcion LIKE @busqueda OR codigo LIKE @busqueda";
                 MySqlDataAdapter adapter = new MySqlDataAdapter(consulta, dbConn);
                 adapter.SelectCommand.Parameters.AddWithValue("@busqueda", "%" + txt.Text + "%");
 
@@ -233,8 +251,7 @@ namespace Punto.Forms
                 adapter.Fill(dt);
 
                 dgvProductos.DataSource = dt;
-                /*dgvProductos.Columns["idUsuario"].Visible = false;
-                dgvProductos.Columns["PASSWORD"].Visible = false;¨*/
+                dbConn.Close();
             }
         }
     }
